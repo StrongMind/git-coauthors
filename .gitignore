@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 git-coauthors-addendum.json
+git-coauthors-override.json
 .idea/

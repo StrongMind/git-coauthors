@@ -11,7 +11,8 @@ add yourself to `./git-coauthors.json`
 
 ## Customizations
 
-### git-coauthors-override.json
+### Override generated Initials 
+add file `git-coauthors-override.json`
 used to override default initials that are generated only used by git mob
 ```json
 {
@@ -39,4 +40,4 @@ with same format as `./git-coauthors.json`
 pyhton generate_git_authors.py
 ```
 
-![](https://img.shields.io/badge/chucks-LOcs-181717?style=for-the-badge&logo=rust)
+![](https://img.shields.io/badge/chucks-LOCS_are_low-181717?style=for-the-badge&logo=4chan)
