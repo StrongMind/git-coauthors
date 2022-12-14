@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+// Propose: to add jira ticket from branch name and co-authors to the commit message when using `git commit -m`
+
+// Requires node 😜
+// To use: place in `.git/hooks/prepare-commit-msg` for the repos you want to use this
+//  and make sure it's executable with `chmod +x .git/hooks/prepare-commit-msg`
+
+// remixed from https://github.com/rkotze/git-mob/blob/master/hook-examples/prepare-commit-msg-nodejs
+
+let exec = require('child_process').exec,
+    fs = require('fs');
+
+const commitMessage = process.argv[2];
+let branchName = ""
+
+exec("git rev-parse --abbrev-ref HEAD",  function (err, stdout){
+    if (err) {
+        process.exit(1);
+    }
+    const match = stdout.match(/^([A-Z]{2,}-[0-9]+)/g);
+    if (match){
+        branchName = match[0]+": ";
+    }
+})
+
+// expect .git/COMMIT_EDITMSG
+if(/COMMIT_EDITMSG/g.test(commitMessage)){
+    let contents = "";
+    exec("git mob-print",
+      function (err, stdout) {
+        if(err) {
+            process.exit(0);
+        }
+
+        // opens .git/COMMIT_EDITMSG
+        contents = fs.readFileSync(commitMessage);
+
+        if(contents.indexOf(stdout.trim()) !== -1) {
+            process.exit(0);
+        }
+
+        // Show in console any co-authors that were added
+        if(stdout.trim().length) {
+            const cyan = '\x1b[36m%s\x1b[0m';
+            console.log(cyan, stdout.trim());
+        }
+
+        const commentPos = contents.indexOf('# ');
+        const gitMessage = contents.slice(0, commentPos);
+        const gitComments = contents.slice(commentPos)
+
+        fs.writeFileSync(commitMessage, branchName + gitMessage + stdout + gitComments);
+        process.exit(0);
+    });
+}
