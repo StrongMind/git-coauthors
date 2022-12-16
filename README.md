@@ -7,7 +7,15 @@ and [jetbrains co-author plugin](https://plugins.jetbrains.com/plugin/10952-co-a
 it will overwrite what you have in your home directory
 `~/.git-coauthors` and `~/.git_coauthors` 
 
-add yourself to `./git-coauthors.json`
+## Git hooks
+[prepare-commit-msg](git-hooks/prepare-commit-msg)
+put it in your repos in `.git/hooks/prepare-commit-msg`
+it does 2 things
+1. Prepends the message with the Jira ticket number in the branch name
+   * Example branch name `OOF-321-add-more-oofs` adds `OOF-321` to the beginning of the commit message
+2. Appends with coauthors from `git mob`
+
+## Add yourself to [git-coauthors.json](./git-coauthors.json)
 
 ## Customizations
 
