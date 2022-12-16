@@ -49,3 +49,4 @@ pyhton generate_git_authors.py
 ```
 
 ![](https://img.shields.io/badge/chucks-LOCS_are_low-181717?style=for-the-badge&logo=4chan)
+![](https://img.shields.io/badge/HAHA-right_to_work_state-181717?style=for-the-badge&logo=topcoder)
